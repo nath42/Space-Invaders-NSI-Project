@@ -9,9 +9,9 @@ RUN=0
 fenetre = pygame.display.set_mode((800,600))
 vaisseau = var.vaisseau
 
-## FONCTION AFFICHAGE MENUS
+## FONCTION AFFICHAGE DES BOUTONS DES MENUS
             
-            #Menu Principal
+            #Boutons du menu principal
 def boutons_principal():
     fenetre.fill( (50,50,50) )
     
@@ -56,9 +56,10 @@ def boutons_principal():
     fenetre.blit(text, (490,425))
     
     gerer_principal(bouton_1P, bouton_2P, bouton_credits, bouton_settings)
-            
-            #Menu selection 1 Player
-def bouton_play():
+
+
+            #Boutons du menu selection 1 Player
+def boutons_selction_1P():
     fenetre.fill( (50,50,50) )
     bouton_play = pygame.draw.rect(
                      fenetre,
@@ -69,7 +70,70 @@ def bouton_play():
     text = var.police_bouton_play.render('PLAY', False, (255,255,255))
     fenetre.blit(text, (510,470))
     
-    gerer_selction_1P(bouton_play)
+    bouton_back = pygame.draw.rect(
+                     fenetre,
+                     (190,0,30),
+                     pygame.Rect((20, 20),(150, 75))
+                     )
+    
+    text = var.police_menu.render('Back', False, (255,255,255))
+    fenetre.blit(text, (60,45))
+    
+    gerer_selction_1P(bouton_play, bouton_back)
+
+
+            #Boutons du menu selection 2 Players
+def boutons_selction_2P():
+    fenetre.fill( (50,50,50) )
+    bouton_play_2P = pygame.draw.rect(
+                     fenetre,
+                     (190,0,30),
+                     pygame.Rect((450, 450),(300, 100))
+                     )
+    
+    text = var.police_bouton_play.render('PLAY', False, (255,255,255))
+    fenetre.blit(text, (510,470))
+    
+    bouton_back = pygame.draw.rect(
+                     fenetre,
+                     (190,0,30),
+                     pygame.Rect((20, 20),(150, 75))
+                     )
+    
+    text = var.police_menu.render('Back', False, (255,255,255))
+    fenetre.blit(text, (60,45))
+    
+    gerer_selction_2P(bouton_play_2P, bouton_back)
+
+
+            #Bouton du menu crédits
+def bouton_credits():
+    fenetre.fill( (50,50,50) )
+    bouton_back = pygame.draw.rect(
+                     fenetre,
+                     (190,0,30),
+                     pygame.Rect((20, 20),(150, 75))
+                     )
+    
+    text = var.police_menu.render('Back', False, (255,255,255))
+    fenetre.blit(text, (60,45))
+    
+    gerer_credits(bouton_back)
+
+
+            #Bouton du menu settings
+def bouton_settings():
+    fenetre.fill( (50,50,50) )
+    bouton_back = pygame.draw.rect(
+                     fenetre,
+                     (190,0,30),
+                     pygame.Rect((20, 20),(150, 75))
+                     )
+    
+    text = var.police_menu.render('Back', False, (255,255,255))
+    fenetre.blit(text, (60,45))
+    
+    gerer_settings(bouton_back)
 
 
 
@@ -87,7 +151,7 @@ def gerer_principal(bouton_1P, bouton_2P, bouton_credits, bouton_settings):
          
         if bouton_1P.collidepoint(mouse_position):
                     RUN=1
-                    print(RUN)
+                    #print(RUN)
         if bouton_2P.collidepoint(mouse_position):
                     RUN=2
                     #print(RUN)
@@ -97,9 +161,10 @@ def gerer_principal(bouton_1P, bouton_2P, bouton_credits, bouton_settings):
         if bouton_settings.collidepoint(mouse_position):
                     RUN=4
                     #print(RUN)
+
         
             #Menu selection 1 Player
-def gerer_selction_1P(bouton_play):
+def gerer_selction_1P(bouton_play, bouton_retour):
     global RUN
     
     mouse = pygame.mouse.get_pressed()
@@ -109,7 +174,55 @@ def gerer_selction_1P(bouton_play):
         
         if bouton_play.collidepoint(mouse_position):
                     RUN=777
-                    print(RUN)
+                    #print(RUN)
+        if bouton_retour.collidepoint(mouse_position):
+                    RUN=0
+                    #print(RUN)
+
+
+            #Menu selection 2 Players
+def gerer_selction_2P(bouton_play_2P, bouton_back):
+    global RUN
+    
+    mouse = pygame.mouse.get_pressed()
+    if mouse[0] == True:
+        #print("oui")
+        mouse_position = pygame.mouse.get_pos()
+        
+        if bouton_play_2P.collidepoint(mouse_position):
+                    RUN=777
+                    #print(RUN)
+        if bouton_back.collidepoint(mouse_position):
+                    RUN=0
+                    #print(RUN)
+
+
+            #Menu crédits
+def gerer_credits(bouton_back):
+    global RUN
+    
+    mouse = pygame.mouse.get_pressed()
+    if mouse[0] == True:
+        #print("oui")
+        mouse_position = pygame.mouse.get_pos()
+        
+        if bouton_back.collidepoint(mouse_position):
+                    RUN=0
+                    #print(RUN)
+
+
+            #Menu settings
+def gerer_settings(bouton_back):
+    global RUN
+    
+    mouse = pygame.mouse.get_pressed()
+    if mouse[0] == True:
+        #print("oui")
+        mouse_position = pygame.mouse.get_pos()
+        
+        if bouton_back.collidepoint(mouse_position):
+                    RUN=0
+                    #print(RUN)
 
 
 
@@ -123,7 +236,28 @@ def fonctions_principal():
 
 ## RASSEMBLEMENT DES FONCTIONS POUR TOURNER LE PROGRAMME DU MENU SELECTION 1 PLAYER
 def fonctions_selection_1P():
-    bouton_play()
+    boutons_selction_1P()
+
+
+
+
+## RASSEMBLEMENT DES FONCTIONS POUR TOURNER LE PROGRAMME DU MENU SELECTION 2 PLAYERS
+def fonctions_selection_2P():
+    boutons_selction_2P()
+
+
+
+
+## RASSEMBLEMENT DES FONCTIONS POUR TOURNER LE PROGRAMME DU MENU CREDITS
+def fonctions_credits():
+    bouton_credits()
+
+
+
+
+## RASSEMBLEMENT DES FONCTIONS POUR TOURNER LE PROGRAMME DU MENU SETTINGS
+def fonctions_settings():
+    bouton_settings()
 
 
 
@@ -218,6 +352,18 @@ def lancement():
         if RUN==1:
             #print(RUN)
             fonctions_selection_1P()
+            pygame.display.flip()
+            
+        if RUN==2:
+            fonctions_selection_2P()
+            pygame.display.flip()
+            
+        if RUN==3:
+            fonctions_credits()
+            pygame.display.flip()
+            
+        if RUN==4:
+            fonctions_settings()
             pygame.display.flip()
             
         if RUN==777:
