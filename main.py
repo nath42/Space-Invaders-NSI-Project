@@ -10,8 +10,8 @@ main_loop_running = True
 
 while main_loop_running == True:
     for event in pygame.event.get():
-                if event.type == QUIT:
-                     main_loop_running = False
+        if event.type == QUIT:
+            main_loop_running = False
     
     fct.lancement()
 

@@ -8,6 +8,8 @@ pygame.init()
 RUN=0
 fenetre = pygame.display.set_mode((800,600))
 vaisseau = var.vaisseau
+pressed_left=False
+pressed_right=False
 
 ## FONCTION AFFICHAGE DES BOUTONS DES MENUS
             
@@ -276,33 +278,45 @@ def fonctions_jeu():
 
 #################################### FONCTIONS JEU ###################################
     
-def vaisseau_control(event, vaisseau, pressed_left, pressed_right):
-    if event.type == pygame.KEYDOWN:
-            
-        if event.key == pygame.K_LEFT:
-            pressed_left = True
-        elif event.key == pygame.K_RIGHT:
-            pressed_right = True
-
-    elif event.type == pygame.KEYUP:
-        if event.key == pygame.K_LEFT:
-            pressed_left = False
-        elif event.key == pygame.K_RIGHT:
-            pressed_right = False
-            
+def vaisseau_control():
+    global pressed_left
+    global pressed_right
+    
+    for event in pygame.event.get():
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                pressed_left = True
+                pressed_right = False
+                print("touche pressée : gauche oui, droite non")
+                print(pressed_left, pressed_right)
+            elif event.key == pygame.K_RIGHT:
+                pressed_right = True
+                pressed_left = False
+                print("touche pressée : droite oui, gauche non")
+                print( pressed_right, pressed_left)
+                
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                pressed_left = False
+            elif event.key == pygame.K_RIGHT:
+                pressed_right = False
+            print("touches relacheés")
+            print(pressed_left, pressed_right)
+                
     return pressed_left, pressed_right
 
 
 
 
 def gameplay():
-    for event in pygame.event.get():
-        v_en_mouv = vaisseau_control(event, vaisseau, pressed_left=False, pressed_right=False)
     
-        if v_en_mouv[0] == True:
-            vaisseau.position[0] -= 15
-        if v_en_mouv[1] == True:
-            vaisseau.position[0] += 15
+    v_en_mouv = vaisseau_control()
+    
+    if v_en_mouv[0] == True:
+        vaisseau.position[0] -= 5
+    elif v_en_mouv[1] == True:
+        vaisseau.position[0] += 5
 
 
 
